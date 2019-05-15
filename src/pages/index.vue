@@ -18,12 +18,13 @@
         <h2>最新消息</h2>
         <ul>
           <li v-for="item in newsList" :key="item.id">
-            <a :href="item.url">{{item.name}}</a>
+            <a :href="item.url" class="new-item">{{item.name}}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="index-right">
+        <slide-show :slides="slides" :inv="invTime"></slide-show>
         <div class="index-board-list">
           <div class="index-board-item" v-for="(board, index) in boardList" :key="index"
             :class="[{'line-last' : index % 2 !== 0}, 'index-board-' + board.id]">
@@ -41,18 +42,36 @@
 </template>
 
 <script>
+import slideShow from '@/components/slideShow'
 export default {
-  created () {
-    this.$http.post('getList', {userid: 123}).then(function (data) {
-      console.log(data)
-    }, function (err) {
-      console.log('========')
-      console.log(err)
-      console.log('========')
-    })
+  components: {
+    slideShow
   },
   data () {
     return {
+      invTime: 2000,
+      slides: [
+        {
+          src: require('../assets/slideShow/pic1.jpg'),
+          title: 'xxx1',
+          href: 'detail/analysis'
+        },
+        {
+          src: require('../assets/slideShow/pic2.jpg'),
+          title: 'xxx2',
+          href: 'detail/count'
+        },
+        {
+          src: require('../assets/slideShow/pic3.jpg'),
+          title: 'xxx3',
+          href: 'http://xxx.xxx.com'
+        },
+        {
+          src: require('../assets/slideShow/pic4.jpg'),
+          title: 'xxx4',
+          href: 'detail/forecast'
+        }
+      ],
       boardList: [
         {
           title: '开放产品',
@@ -85,7 +104,7 @@ export default {
       ],
       newsList: [
         {
-          name: '数据统计',
+          name: '数据统计这是一条实时新闻消息很重要',
           url: 'http://starcraft.com'
         },
         {
