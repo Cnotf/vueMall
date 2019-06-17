@@ -9,7 +9,7 @@
                 <li class="nav-pile">|</li>
                 <li>注册</li>
                 <li class="nav-pile">|</li>
-                <li>关于</li>
+                <li @click="aboutclick">关于</li>
               </ul>
             </div>
           </div>
@@ -20,14 +20,30 @@
           </keep-alive>
         </div>
         <div class="app-foot">@ 2019 cnotf MIT</div>
+        <my-dia-log :is-show="isShowFlag" @on-close="closeDiv">
+            <h2>other hello</h2>
+        </my-dia-log>
     </div>
 </template>
 
 <script>
+import DiaLog from '@/components/dialog'
 export default {
+  components: {
+    MyDiaLog: DiaLog
+  },
+  methods: {
+    closeDiv () {
+      this.isShowFlag = false
+    },
+    aboutclick () {
+      this.isShowFlag = true
+    }
+  },
   data () {
     return {
       msg: 'layout.vue',
+      isShowFlag: false,
       prifile: 4
     }
   }
